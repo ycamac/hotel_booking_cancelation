@@ -17,7 +17,7 @@ from pages.about_page import about_page
 
 # Page configuration
 st.set_page_config(
-    page_title="Hotelligence - Hotel Booking Cancellation Predictor",
+    page_title="Hotellingece - Hotel Booking Cancellation Predictor",
     page_icon="🏨",
     layout="wide"
 )
@@ -47,9 +47,24 @@ if 'authenticated' not in st.session_state:
 if 'username' not in st.session_state:
     st.session_state.username = None
 
+
 # Main app
 def main():
     """Main application function"""
+    
+    st.markdown("""
+    <div class="header">
+        <div><b>Hotelligence:</b> Predict your guests' next move</div>
+        <div>
+            <a href="#" style="margin-right: 20px; color: #6b7280; text-decoration: none;">New Booking</a>
+            <a href="#" style="margin-right: 20px; color: #6b7280; text-decoration: none;">Bookings</a>
+            <a href="#" style="margin-right: 20px; color: #6b7280; text-decoration: none;">Dashboard</a>
+            <a href="#" style="margin-right: 20px; color: #6b7280; text-decoration: none;">About Us</a>
+            <button class="button" style="margin-right: 20px;">Log Out</button>
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
     # Initialize page state
     if 'page' not in st.session_state:
         st.session_state.page = "login"
@@ -75,6 +90,8 @@ def main():
         about_page()
     elif st.session_state.page == "login":
         login_page()
+
+    st.markdown("""<div class="footer">Copyright © 2025</div>""", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main() 

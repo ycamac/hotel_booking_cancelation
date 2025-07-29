@@ -7,13 +7,6 @@ def login_page():
     st.markdown("""
     <div class="header">
         <div><b>Hotelligence:</b> Predict your guests' next move</div>
-        <div>
-            <a href="#" style="margin-right: 20px; color: #6b7280; text-decoration: none;">New Booking</a>
-            <a href="#" style="margin-right: 20px; color: #6b7280; text-decoration: none;">Bookings</a>
-            <a href="#" style="margin-right: 20px; color: #6b7280; text-decoration: none;">Dashboard</a>
-            <a href="#" style="margin-right: 20px; color: #6b7280; text-decoration: none;">About Us</a>
-            <button class="button" style="margin-right: 20px;">Log Out</button>
-        </div>
     </div>
     """, unsafe_allow_html=True)
 
