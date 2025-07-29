@@ -25,7 +25,7 @@ def load_css():
             position: fixed;
             left: 0;
             top: 0;
-            padding: 10px;    
+            padding: 5px;    
             width: 100%;
             background-color: rgb(23, 29, 59);
             color: #6b7280;
@@ -39,6 +39,7 @@ def load_css():
             position: fixed;
             left: 0;
             bottom: 0;
+            padding: 5px;
             width: 100%;
             background-color: rgb(23, 29, 59);
             color: white;

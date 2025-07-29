@@ -3,13 +3,6 @@ import streamlit as st
 def login_page():
     """Login page component"""
 
-
-    st.markdown("""
-    <div class="header">
-        <div><b>Hotelligence:</b> Predict your guests' next move</div>
-    </div>
-    """, unsafe_allow_html=True)
-
     #this container centers the login form
     with st.container():
 
