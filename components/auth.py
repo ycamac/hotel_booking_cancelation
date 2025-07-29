@@ -27,7 +27,7 @@ def login_page():
             col1, col2, col3 = st.columns([1, 2, 1])
             
             with col2:
-                st.image("images\hotel_logo.jpg")
+                st.image("images/hotel_logo.jpg")
 
                 with st.form("login_form"):
                     
