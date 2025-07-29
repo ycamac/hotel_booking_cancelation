@@ -51,13 +51,14 @@ def dashboard_page():
     col1, col2 = st.columns(2)
     
     with col1:
-        # Cancellation trend over time
-        dates = pd.date_range(start='2024-01-01', end='2024-12-31', freq='ME')
-        date_strings = [date.strftime('%Y-%m') for date in dates]
+        # Cancellation trend over time - Fixed frequency issue
+        # Generate monthly dates for 2024
+        months = ['2024-01', '2024-02', '2024-03', '2024-04', '2024-05', '2024-06',
+                 '2024-07', '2024-08', '2024-09', '2024-10', '2024-11', '2024-12']
         cancellation_rates = [12, 15, 18, 14, 16, 13, 15, 17, 19, 16, 14, 15]
         
         fig = px.line(
-            x=date_strings,
+            x=months,
             y=cancellation_rates,
             title="Cancellation Rate Trend",
             labels={'x': 'Month', 'y': 'Cancellation Rate (%)'}
