@@ -6,19 +6,20 @@ from streamlit_navigation_bar import st_navbar
 
 def create_navigation():
 
-    logo_path = os.path.abspath("images/logo_menu.jpg")
-    pages = ["Home", "New Booking", "Bookings", "Dashboard", "About Us", "Logout"]
+    logo_path = os.path.abspath("images/logo_menu.svg")
+    pages = ["New Booking", "Bookings", "Dashboard", "About Us", "Logout"]
     styles = {
         "nav": {
             "background-color": "rgb(23, 29, 59)",
-            "justify-content": "right",        
+            "justify-content": "right",   
+            "align-items": "left",     
             "font-family": "Roboto",
             "display": "flex",
             # "font-family": "Work Sans, Noto Sans, sans-serif",
             "font-size": "13px",
         },
         "img": {
-            "padding-right": "14px",
+            "padding-right": "100px",
         },
         "div": {        
             "width": "100%",
@@ -42,9 +43,10 @@ def create_navigation():
         "show_sidebar": False,
     }
 
-    page = st_navbar(pages, styles=styles, options=options)
+    page = st_navbar(pages, styles=styles, logo_path=logo_path, logo_page="home_page", options=options)
         
-    if page == "Home":
+
+    if page == "home_page":
         st.session_state.page = "home"
         pg.home_page()
     elif page == "New Booking":
