@@ -31,12 +31,10 @@ def login_page():
                         else:
                             st.error("Invalid username or password. Try admin/password123")
                 
-                    st.markdown("</div>", unsafe_allow_html=True)
+                    # st.markdown("</div>", unsafe_allow_html=True)
                 
                 st.markdown("""
                 <div style="text-align: center; margin-top: 5px; color: #6b7280;">
                     <small>Demo Credentials: admin / password123</small>
                 </div>
                 """, unsafe_allow_html=True) 
-    
-    st.markdown("""<div class="footer">Copyright © 2025</div>""", unsafe_allow_html=True)
