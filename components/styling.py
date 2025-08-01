@@ -21,6 +21,35 @@ def load_css():
             margin-bottom: 3rem;
         }
 
+        .stToastContainer{
+            margin: 0 !important;
+            position: 0 !important;
+        }
+        .stMainBlockContainer {
+            padding-top: 0 !important;
+            padding-bottom: 100px !important;
+        }
+
+        .stVerticalBlock {
+            height: 0%;
+        }
+                
+        /* Fix Vertical Block height inheritance */
+        .stVerticalBlock {
+            height: auto !important;
+        }
+
+        /* Remove unnecessary section offset */
+        section.stMain {
+            top: 0 !important;
+        }
+                
+        /* Normalize stMainBlockContainer padding */
+        [data-testid="stMainBlockContainer"] {
+            padding-top: 0 !important;
+            pointer-events: auto; /* Optional, if interaction is needed */
+        }
+          
         .header {
             position: fixed;
             left: 0;
@@ -55,8 +84,8 @@ def load_css():
         }
         .metric-card {
             background-color: white;
-            padding: 15px,5px ;
-            margin-bottom: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
             border-radius: 20px;
             border: 1px solid #e5e7eb;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
@@ -112,8 +141,7 @@ def load_css():
             background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80');
             background-size: cover;
             background-position: center;
-            color: white;
-            padding: 4rem 2rem;
+            padding: 12rem 2rem;
             text-align: center;
             border-radius: 10px;
             margin-bottom: 3rem;

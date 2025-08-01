@@ -11,28 +11,32 @@ def create_navigation():
     styles = {
         "nav": {
             "background-color": "rgb(23, 29, 59)",
-            "justify-content": "right",   
-            "align-items": "left",     
+            "justify-content": "center",   
+            "align-items": "center",     
             "font-family": "Roboto",
             "display": "flex",
             # "font-family": "Work Sans, Noto Sans, sans-serif",
             "font-size": "13px",
+            "padding-left": "1rem",
+            "padding-right": "1rem",
         },
         "img": {
-            "padding-right": "100px",
+            "margin-left": "0px",
+            "margin-right": "800px",
+            "height": "45px"
         },
         "div": {        
+            "max-width": "100%",
             "width": "100%",
         },
         "span": {
             "color": "white",
-            "padding": "14px",
+            "padding": "15px",
         },
         "active": {
             "background-color": "white",
             "color": "var(--text-color)",
             "font-weight": "normal",
-            "padding": "14px",
         },
         "hover": {
             "background-color": "rgba(255, 255, 255, 0.25)",
@@ -41,6 +45,7 @@ def create_navigation():
     options = {
         "show_menu": False,
         "show_sidebar": False,
+        "use_padding": False,
     }
 
     page = st_navbar(pages, styles=styles, logo_path=logo_path, logo_page="home_page", options=options)
