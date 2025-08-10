@@ -4,7 +4,9 @@ import pages as pg
 
 from streamlit_navigation_bar import st_navbar
 
+
 def create_navigation():
+    """Create navigation bar for the app"""
 
     logo_path = os.path.abspath("images/logo_menu.svg")
     pages = ["New Booking", "Bookings", "Dashboard", "About Us", "Logout"]
@@ -67,8 +69,12 @@ def create_navigation():
         st.session_state.page = "about"
         pg.about_page()
     elif page == "Logout":
+        # Clear all session state variables
+        for key in list(st.session_state.keys()):
+            del st.session_state[key]
+        # Reinitialize the session state
         st.session_state.authenticated = False
         st.session_state.username = None
         st.session_state.page = "login"
+        st.session_state.bookings = []
         st.rerun()
-

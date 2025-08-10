@@ -7,32 +7,32 @@ def bookings_page():
     st.markdown('<p class="sub-header">Manage and view all your bookings with prediction scores.</p>', unsafe_allow_html=True)
     
     # Quick Analytics
-    col1, col2 = st.columns(2)
-    with col1:
-        st.markdown("""
-        <div class="metric-card">
-            <h3>Cancellation Rate</h3>
-            <h2 style="color: #dc2626; font-size: 2rem;">15%</h2>
-            <p style="color: #dc2626;">-2%</p>
-        </div>
-        """, unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([1,2,1])
     with col2:
-        st.markdown("""
-        <div class="metric-card">
-            <h3>Booking Trend</h3>
-            <h2 style="color: #059669; font-size: 2rem;">+10%</h2>
-            <p style="color: #059669;">+5%</p>
-        </div>
-        """, unsafe_allow_html=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown("""
+            <div class="metric-card">
+                <h3>Cancellation Rate</h3>
+                <h2 style="color: #dc2626; font-size: 2rem;">15%</h2>
+                <p style="color: #dc2626;">-2%</p>
+            </div>
+            """, unsafe_allow_html=True)
+        with col2:
+            st.markdown("""
+            <div class="metric-card">
+                <h3>Booking Trend</h3>
+                <h2 style="color: #059669; font-size: 2rem;">+10%</h2>
+                <p style="color: #059669;">+5%</p>
+            </div>
+            """, unsafe_allow_html=True)
     
-    # Add New Booking button with better margins
-    st.markdown('<div style="margin: 2rem 0 1rem 0;">', unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
+        # Add New Booking button with better margins
+        st.markdown('<div style="margin: 1rem 0 1rem 0;">', unsafe_allow_html=True)
         if st.button("+ New Booking", type="primary", use_container_width=True):
             st.session_state.page = "new_booking"
-            st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
+            st.rerun()            
+        st.markdown('</div>', unsafe_allow_html=True)
     
     # Functional filters and search bar
     st.markdown('<div style="margin: 1rem 0 2rem 0;">', unsafe_allow_html=True)

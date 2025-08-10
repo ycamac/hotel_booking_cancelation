@@ -6,6 +6,9 @@ import plotly.express as px
 # Import the pages module   
 import pages as pg
 
+# Import the model module
+from utils.model import get_model
+
 # Import components
 from components.styling import load_css
 from components.navigations import create_navigation
@@ -35,38 +38,37 @@ st.markdown("""
 load_css()
 
 # Initialize session state
+def initialize_session_state():
+    """Initialize session state variables"""
+    if 'authenticated' not in st.session_state:
+        st.session_state.authenticated = False
+    if 'username' not in st.session_state:
+        st.session_state.username = None
+    if 'bookings' not in st.session_state:
+        st.session_state.bookings = []
+    if 'page' not in st.session_state:
+        st.session_state.page = "login"
 
-if 'authenticated' not in st.session_state:
-    st.session_state.authenticated = False
-
-if 'username' not in st.session_state:
-    st.session_state.username = None
-
-if 'bookings' not in st.session_state:
-    st.session_state.bookings = []
-
+# Initialize session state
+initialize_session_state()
 
 #################################################################################
 # Main function to control the app flow
 #################################################################################
 def main():
-
-    # Initialize page state
-    if 'page' not in st.session_state:
-        st.session_state.page = "login"
-    
     # Check authentication
     if not st.session_state.authenticated:
+        # Ensure we're on login page when not authenticated
+        st.session_state.page = "login"
         st.markdown("""
             <div class="header">    
                 <div style="padding: 5px 15px;"><b>Hotelligence:</b> Predict your guests' next move</div>
             </div>
             """, unsafe_allow_html=True)
         login_page()
+
     else:
-        # Check if the page is set to login, and redirect to home if so
-        if st.session_state.page == "login":
-            st.session_state.page = "home"
+        # User is authenticated, show navigation
         create_navigation()
 
     #We include the footer in the main app flow

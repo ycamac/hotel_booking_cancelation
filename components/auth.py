@@ -1,8 +1,14 @@
 import streamlit as st
+import time
 
 def login_page():
     """Login page component"""
 
+
+    st.markdown("""
+    <div style="margin-top: 5%; color: #6b7280;">
+    </div>
+    """, unsafe_allow_html=True) 
     #this container centers the login form
     with st.container():
 
@@ -23,10 +29,13 @@ def login_page():
                     if st.form_submit_button("Log In", type="primary", use_container_width=True):
                         # Simple authentication (in production, use proper authentication)
                         if username == "admin" and password == "password123":
+                            # Clear any existing state and set new authentication
                             st.session_state.authenticated = True
                             st.session_state.username = username
                             st.session_state.page = "home"
-                            st.success("Login successful!")
+                            st.session_state.bookings = []
+                            st.success("Login successful!!")
+                            time.sleep(1)  # Simulate a delay for better UX
                             st.rerun()
                         else:
                             st.error("Invalid username or password. Try admin/password123")

@@ -83,6 +83,7 @@ def load_css():
             border-radius: 5px;
         }
         .metric-card {
+            text-align: center;
             background-color: white;
             padding: 15px;
             margin-bottom: 10px;
