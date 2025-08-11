@@ -1,5 +1,5 @@
 import streamlit as st
-from data.bookings_data import generate_dummy_bookings, filter_bookings
+from data.bookings_data import filter_bookings
 
 def bookings_page():
     """Bookings page component"""
@@ -65,7 +65,10 @@ def bookings_page():
     
     st.markdown('<h3 style="margin-top: 2rem;">All Bookings</h3>', unsafe_allow_html=True)
     
-    bookings = generate_dummy_bookings() + st.session_state.bookings
+    # Use only real bookings created in this session
+    if 'bookings' not in st.session_state:
+        st.session_state.bookings = []
+    bookings = st.session_state.bookings
     
     # Filter bookings based on search and filters
     filtered_bookings = filter_bookings(
@@ -86,7 +89,7 @@ def bookings_page():
             <div class="guest-name">Guest Name</div>
             <div class="date">Check-in Date</div>
             <div class="date">Check-out Date</div>
-            <div class="room-type">Room Type</div>
+            <div class="room-type">Hotel Type</div>
         </div>
         <div style="display: flex; gap: 20px; align-items: center;">
             <div style="min-width: 80px;">Status</div>
@@ -96,6 +99,10 @@ def bookings_page():
     """, unsafe_allow_html=True)
     
     # Display each booking row
+    if not filtered_bookings:
+        st.info("No bookings to display yet. Create a new booking to see it here.")
+        return
+
     for booking in filtered_bookings:
         status_class = "status-confirmed" if booking['status'] == 'Confirmed' else "status-cancelled"
         
