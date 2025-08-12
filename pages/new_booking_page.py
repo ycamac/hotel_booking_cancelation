@@ -2,8 +2,7 @@ import pandas as pd
 import streamlit as st
 import model.functions as mf
 from data.bookings_data import create_new_booking
-from utils import model
-from utils.model import get_model, predict_real_cancellation, prepare_booking_data_for_prediction
+from utils.model import prepare_booking_data_for_prediction
 from data.country_codes import get_countries_for_selectbox
 from datetime import date
 
