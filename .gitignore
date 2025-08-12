@@ -2,3 +2,4 @@ hotel_env
 repo_mirror
 model/files/rf_model_v2.pkl
 model/files/rf_model_300_entropy.pkl
+__pycache__/
