@@ -28,11 +28,11 @@ def bookings_page():
             """, unsafe_allow_html=True)
     
         # Add New Booking button with better margins
-        st.markdown('<div style="margin: 1rem 0 1rem 0;">', unsafe_allow_html=True)
-        if st.button("+ New Booking", type="primary", use_container_width=True):
-            st.session_state.page = "new_booking"
-            st.rerun()            
-        st.markdown('</div>', unsafe_allow_html=True)
+        #st.markdown('<div style="margin: 1rem 0 1rem 0;">', unsafe_allow_html=True)
+        #if st.button("New Booking", type="primary", use_container_width=True):
+         #   st.session_state.page = "new_booking"
+         #   st.rerun()            
+        #st.markdown('</div>', unsafe_allow_html=True)
     
     # Functional filters and search bar
     st.markdown('<div style="margin: 1rem 0 2rem 0;">', unsafe_allow_html=True)

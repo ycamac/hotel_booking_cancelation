@@ -137,9 +137,9 @@ def new_booking_page():
                     
                     # Show success message and option to view bookings
                     st.success("Booking created successfully!")
-                    if st.button("View All Bookings"):
-                        st.session_state.page = "bookings"
-                        st.rerun()
+                    #if st.button("View All Bookings"):
+                    #    st.session_state.page = "bookings"
+                    #    st.rerun()
                         
                 except Exception as e:
                     st.error(f"Error making prediction: {str(e)}")
