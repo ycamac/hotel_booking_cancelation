@@ -17,7 +17,7 @@ def new_booking_page():
         col1, col2, col3 = st.columns(3)
         
         # Basic information
-        with col1.expander("Basic Information"): 
+        with col1.expander("Basic Information", expanded=True): 
             guest_name = st.text_input("Guest Name", help="Enter guest name")
             num_adults = st.slider("Number of Adults", min_value=0, max_value=10, value=2)
             num_children = st.slider("Number of Children", min_value=0, max_value=10, value=0)
@@ -42,7 +42,7 @@ def new_booking_page():
                         country = code
                         break
         # Reservation information
-        with col2.expander("Reservation Information"):
+        with col2.expander("Reservation Information", expanded=True):
             hotel_type = st.selectbox("Hotel Type", ["Select hotel type", "City Hotel", "Resort Hotel"])
             room_type = st.selectbox("Room Type", ["Select room type", "A", "B", "C", "D", "E", "F", "G", "H", "L", "P"])
             check_in = st.date_input("Check-in Date", value=date.today())
@@ -52,7 +52,7 @@ def new_booking_page():
             deposit_type = st.selectbox("Deposit Type", ["Select deposit type", "No Deposit", "Refundable", "Non Refundable"], index=1)
 
         # Additional information    
-        with col3.expander("Additional Information"):
+        with col3.expander("Additional Information", expanded=True):
             assigned_room_type = st.selectbox("Assigned Room Type", ["Select assigned room type", "A", "B", "C", "D", "E", "F", "G", "H", "L", "P"])    
             market_segment = st.selectbox("Market Segment", ["Select market segment", "Direct", "Online TA", "Offline TA/TO", "Complementary", "Groups", "Corporate", "Undefined"], index=1)
             distribution_channel = st.selectbox("Distribution Channel", ["Select distribution channel", "Direct", "TA/TO", "Undefined"], index=1)
@@ -76,7 +76,7 @@ def new_booking_page():
                 
                 try:
                     # Load the model, encoder and scaler
-                    model = mf.get_model("./model/files/rf_model_v2.pkl")
+                    model = mf.get_model("./model/files/rf_model_v3.pkl")
                     encoder = mf.get_encoder("./model/files/catencoder.pkl")
                     scaler = mf.get_scaler("./model/files/fea_scaler.pkl")
                     
