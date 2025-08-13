@@ -1,7 +1,7 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-from utils.model import get_model_metrics
+import model.functions as mf
 
 
 def dashboard_page():
@@ -51,7 +51,7 @@ def dashboard_page():
         </div>
         """, unsafe_allow_html=True)
     with col4:
-        metrics = get_model_metrics()
+        metrics = mf.get_model_metrics()
         st.markdown(f"""
         <div class="metric-card">
             <h3>Model Accuracy</h3>

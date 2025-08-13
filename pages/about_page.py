@@ -30,11 +30,11 @@ def about_page():
         <div class="team-avatar">FM</div>
         <div class="team-info">
             <h3>Francisco Meza</h3>
-            <p style="color: #6b7280; margin-bottom: 0.5rem;">Lead Data Scientist & ML Engineer</p>
+            <p style="color: #6b7280; margin-bottom: 0.5rem;">Full Stack Developer & UI/UX Designer</p>
             <p style="color: #374151; line-height: 1.6;">
-                Francisco is a passionate data scientist with expertise in machine learning and predictive analytics. 
-                He specializes in developing AI models for the hospitality industry and has a deep understanding 
-                of hotel operations and guest behavior patterns.
+                Francisco is a skilled full stack developer with a keen eye for user experience design. 
+                He focuses on creating intuitive and responsive web applications that make complex 
+                data insights accessible to hotel administrators.
             </p>
         </div>
     </div>
@@ -46,11 +46,11 @@ def about_page():
         <div class="team-avatar">YC</div>
         <div class="team-info">
             <h3>Yulian Cama</h3>
-            <p style="color: #6b7280; margin-bottom: 0.5rem;">Full Stack Developer & UI/UX Designer</p>
+            <p style="color: #6b7280; margin-bottom: 0.5rem;">Lead Data Scientist & ML Engineer</p>
             <p style="color: #374151; line-height: 1.6;">
-                Yulian is a skilled full stack developer with a keen eye for user experience design. 
-                He focuses on creating intuitive and responsive web applications that make complex 
-                data insights accessible to hotel administrators.
+                Yulian is a passionate data scientist with expertise in machine learning and predictive analytics. 
+                He specializes in developing AI models for the hospitality industry and has a deep understanding 
+                of hotel operations and guest behavior patterns.
             </p>
         </div>
     </div>

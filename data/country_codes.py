@@ -196,33 +196,6 @@ ISO_COUNTRY_CODES = {
     "ZWE": "Zimbabwe"
 }
 
-def get_country_name_by_code(country_code):
-    """
-    Get country name by ISO 3166-3 code
-    
-    Args:
-        country_code (str): 3-letter ISO country code (e.g., 'USA', 'GBR')
-    
-    Returns:
-        str: Country name or None if code not found
-    """
-    return ISO_COUNTRY_CODES.get(country_code.upper())
-
-def get_country_code_by_name(country_name):
-    """
-    Get ISO 3166-3 code by country name
-    
-    Args:
-        country_name (str): Country name (e.g., 'United States', 'Canada')
-    
-    Returns:
-        str: 3-letter ISO country code or None if name not found
-    """
-    for code, name in ISO_COUNTRY_CODES.items():
-        if name.lower() == country_name.lower():
-            return code
-    return None
-
 def get_all_countries():
     """
     Get all countries as a list of tuples (code, name)
@@ -242,15 +215,3 @@ def get_countries_for_selectbox():
     countries = [("Select country", "")]
     countries.extend([(name, code) for code, name in get_all_countries()])
     return countries
-
-def validate_country_code(country_code):
-    """
-    Validate if a country code is valid ISO 3166-3
-    
-    Args:
-        country_code (str): 3-letter ISO country code
-    
-    Returns:
-        bool: True if valid, False otherwise
-    """
-    return country_code.upper() in ISO_COUNTRY_CODES

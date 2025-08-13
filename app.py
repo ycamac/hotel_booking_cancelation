@@ -1,13 +1,4 @@
 import streamlit as st
-import pandas as pd
-import numpy as np
-import plotly.express as px
-
-# Import the pages module   
-import pages as pg
-
-# Import the model module
-from utils.model import get_model
 
 # Import components
 from components.styling import load_css

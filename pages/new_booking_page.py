@@ -2,7 +2,6 @@ import pandas as pd
 import streamlit as st
 import model.functions as mf
 from data.bookings_data import create_new_booking
-from utils.model import prepare_booking_data_for_prediction
 from data.country_codes import get_countries_for_selectbox
 from datetime import date
 
@@ -62,7 +61,7 @@ def new_booking_page():
             previous_cancellations = st.slider("Previous Cancellations", min_value=0, max_value=10, value=0)
             previous_bookings_not_canceled = st.slider("Previous Bookings Not Canceled", min_value=0, max_value=10, value=0)
             customer_type = st.selectbox("Customer Type", ["Select customer type", "Transient", "Contract", "Group", "Transient-Party"], index=1)
-            average_daily_rate = st.slider("Average Daily Rate", min_value=0, max_value=10000, value=50)
+            average_daily_rate = st.number_input("Average Daily Rate", min_value=0, max_value=10000, value=50)
 
         # Prediction section
         if st.button("Predict Cancellation", type="primary", use_container_width=True):
@@ -82,7 +81,7 @@ def new_booking_page():
                     scaler = mf.get_scaler("./model/files/fea_scaler.pkl")
                     
                     # Prepare data for prediction
-                    booking_df = prepare_booking_data_for_prediction(
+                    booking_df = mf.prepare_booking_data_for_prediction(
                         hotel_type, check_in, check_out,
                         num_adults, num_children, num_babies, special_requests, parking,
                         meal, country, room_type, deposit_type, customer_type,
@@ -101,10 +100,6 @@ def new_booking_page():
                     df_prediction_proba.columns = ['Not canceled', 'Canceled']
 
                     prediction_score = round(df_prediction_proba['Canceled'].values[0] * 100, 2)
-
-                    # Make prediction
-                    # prediction = predict_real_cancellation(booking_df, model)
-                    # prediction_score = int(prediction[0] * 100)  # Convert to percentage
                     
                     st.success(f"Prediction Complete!")
                     st.markdown(f"""
