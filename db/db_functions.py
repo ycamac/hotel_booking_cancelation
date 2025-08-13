@@ -1,12 +1,8 @@
 import sqlite3 as sql
 from datetime import datetime, timedelta
 
-# Global variables
-db_path = "./db/hotelligence.db"
-current_date = datetime.now().date()
-
-
 def get_all_bookings():
+    db_path = "./db/hotelligence.db"
     with sql.connect(db_path) as con:
         cur = con.cursor()
         cur.execute("SELECT * FROM bookings")
@@ -21,9 +17,12 @@ def add_booking(guest_name,hotel_type, check_in, check_out,
                         distribution_channel, booking_changes, is_repeated_guest,
                         previous_cancellations, previous_bookings_not_canceled, prediction_score):
 
+
+    db_path = "./db/hotelligence.db"    
     success_msg = ""
     error_msg = ""  
     reservation_status = "Active"
+    current_date = datetime.now().date()
 
     # Calculate lead_time automatically based on current date and check-in date
     if check_in:
@@ -42,14 +41,14 @@ def add_booking(guest_name,hotel_type, check_in, check_out,
         total_nights = (check_out_date - check_in_date).days
         weekend_nights = 0
         week_nights = 0
-        
-        current_date = check_in_date
+
+        check = check_in_date
         for _ in range(total_nights):
-            if current_date.weekday() >= 5:  # Saturday (5) or Sunday (6)
+            if check.weekday() >= 5:  # Saturday (5) or Sunday (6)
                 weekend_nights += 1
             else:
                 week_nights += 1
-            current_date += timedelta(days=1)
+            check += timedelta(days=1)
     else:
         weekend_nights = 0
         week_nights = 0
