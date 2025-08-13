@@ -37,8 +37,8 @@ y = prepared_data['is_canceled']
 # Train the model
 clf = RandomForestClassifier(
     n_estimators=300,         # Reduced from 300. A good starting point.
-    max_depth=12,             # *** THE MOST IMPORTANT CHANGE *** Limits how deep each tree can go.
-    min_samples_leaf=10,      # A leaf must have at least 10 samples. Prevents tiny, specific leaves.
+    max_depth=17,             # *** THE MOST IMPORTANT CHANGE *** Limits how deep each tree can go.
+    min_samples_leaf=1,      # A leaf must have at least 10 samples. Prevents tiny, specific leaves.
     criterion='entropy',      # Kept your choice of criterion.
     bootstrap=True,           # Kept your choice of bootstrap.
     n_jobs=-1,                # Bonus: Use all available CPU cores to speed up training.
