@@ -6,6 +6,7 @@
 import pandas as pd
 import pickle
 import functions as mf
+import skops.io as sio
 
 from sklearn.ensemble import RandomForestClassifier
 
@@ -34,11 +35,19 @@ X = prepared_data.drop('is_canceled', axis=1)
 y = prepared_data['is_canceled']
 
 # Train the model
-clf = RandomForestClassifier(n_estimators=300, criterion='entropy', min_samples_split=2, bootstrap=True)
+clf = RandomForestClassifier(
+    n_estimators=300,         # Reduced from 300. A good starting point.
+    max_depth=12,             # *** THE MOST IMPORTANT CHANGE *** Limits how deep each tree can go.
+    min_samples_leaf=10,      # A leaf must have at least 10 samples. Prevents tiny, specific leaves.
+    criterion='entropy',      # Kept your choice of criterion.
+    bootstrap=True,           # Kept your choice of bootstrap.
+    n_jobs=-1,                # Bonus: Use all available CPU cores to speed up training.
+    random_state=42           # Bonus: Ensures you get the same result every time you run it.
+)
 clf.fit(X, y)
 
 # Save the model and encoders
-with open("./model/files/rf_model_v2.pkl", "wb") as f:
+with open("./model/files/rf_model_v3.pkl", "wb") as f:
     pickle.dump(clf, f)
 with open("./model/files/catencoder.pkl", "wb") as f:
     pickle.dump(encoder, f)
