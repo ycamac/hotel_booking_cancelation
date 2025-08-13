@@ -1,5 +1,6 @@
 import pandas as pd
 import streamlit as st
+from db.db_functions import add_booking
 import model.functions as mf
 from data.bookings_data import create_new_booking
 from data.country_codes import get_countries_for_selectbox
@@ -57,7 +58,11 @@ def new_booking_page():
             market_segment = st.selectbox("Market Segment", ["Select market segment", "Direct", "Online TA", "Offline TA/TO", "Complementary", "Groups", "Corporate", "Undefined"], index=1)
             distribution_channel = st.selectbox("Distribution Channel", ["Select distribution channel", "Direct", "TA/TO", "Undefined"], index=1)
             booking_changes = st.slider("Booking Changes", min_value=0, max_value=10, value=0)
-            is_repeated_guest = st.selectbox("Is Repeated Guest", ["Select if repeated guest", "Yes", "No"], index=2)
+
+            # Extract is_repeated_guest value
+            repeated_guest = st.selectbox("Is Repeated Guest", ["Select if repeated guest", "Yes", "No"], index=2)
+            is_repeated_guest = 1 if repeated_guest == "Yes" else 0
+
             previous_cancellations = st.slider("Previous Cancellations", min_value=0, max_value=10, value=0)
             previous_bookings_not_canceled = st.slider("Previous Bookings Not Canceled", min_value=0, max_value=10, value=0)
             customer_type = st.selectbox("Customer Type", ["Select customer type", "Transient", "Contract", "Group", "Transient-Party"], index=1)
@@ -124,7 +129,20 @@ def new_booking_page():
                     # Create new booking with real prediction
                     new_booking, _ = create_new_booking(guest_name, hotel_type, check_in, check_out)
                     new_booking['prediction_score'] = prediction_score
-                    
+
+                    # Add to database
+                    success_msg, error_msg = add_booking(
+                        guest_name,hotel_type, check_in, check_out,
+                        num_adults, num_children, num_babies, special_requests, parking,
+                        meal, country, room_type, deposit_type, customer_type,
+                        average_daily_rate, assigned_room_type, market_segment,
+                        distribution_channel, booking_changes, is_repeated_guest,
+                        previous_cancellations, previous_bookings_not_canceled, prediction_score)
+                    if error_msg:
+                        st.error(f"Error adding booking: {error_msg}")
+                    else:
+                        st.success(success_msg)
+
                     # Add to bookings
                     if 'bookings' not in st.session_state:
                         st.session_state.bookings = []
