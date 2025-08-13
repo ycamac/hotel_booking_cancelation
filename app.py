@@ -6,14 +6,14 @@ from components.navigations import create_navigation
 from components.auth import login_page
 from utils.download_model import download_file
 
-MODEL_FILE = "./model/files/rf_model_v2.pkl"
-MODEL_URL = "https://huggingface.co/Franmeza/hotel_booking_prediction/resolve/main/rf_model_v2.pkl"
+#MODEL_FILE = "./model/files/rf_model_v2.pkl"
+#MODEL_URL = "https://huggingface.co/Franmeza/hotel_booking_prediction/resolve/main/rf_model_v2.pkl"
 
-download_file(MODEL_URL, MODEL_FILE)
+#download_file(MODEL_URL, MODEL_FILE)
 
 # Load the model
-with open(MODEL_FILE, "rb") as f:
-    model = pickle.load(f)
+#with open(MODEL_FILE, "rb") as f:
+    #model = pickle.load(f)
 # Page configuration
 st.set_page_config(
     page_title="Hotellingece - Predict your guests\' next move",
