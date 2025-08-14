@@ -76,5 +76,5 @@ def create_navigation():
         st.session_state.authenticated = False
         st.session_state.username = None
         st.session_state.page = "login"
-        st.session_state.bookings = []
+        st.session_state.db_path = None
         st.rerun()

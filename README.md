@@ -19,7 +19,7 @@ The application is built with a **modular, component-based architecture** for be
 ```
 hotel_booking_cancellation_app/
 ├── app.py                          # Main application entry point
-├── requirements.txt                 # Python dependencies
+├── requirements.txt                # Python dependencies
 ├── README.md                       # Project documentation
 ├── components/                     # Reusable UI components
 │   ├── __init__.py
@@ -140,7 +140,6 @@ data/
 - **Pandas**: Data manipulation and analysis
 - **NumPy**: Numerical computing
 - **Plotly**: Interactive charts and visualizations
-- **Watchdog**: File system monitoring for development
 
 ## 🎯 Features Implemented
 
@@ -153,12 +152,12 @@ data/
 - ✅ **Progress Visualization**: Progress bars for prediction scores
 - ✅ **Form Validation**: Input validation and error handling
 - ✅ **Session Management**: State management across pages
+- ✅ **Machine Learning**: Real ML model integration
+- ✅ **Database Integration**: Connect to real database systems
 
 ## 🚀 Future Enhancements
 
-- **Database Integration**: Connect to real database systems
 - **API Development**: RESTful API for external integrations
-- **Machine Learning**: Real ML model integration
 - **User Management**: Multi-user support with roles
 - **Notifications**: Real-time alerts and notifications
 - **Mobile App**: Native mobile application
@@ -167,8 +166,8 @@ data/
 
 ## 👥 Team
 
-- **Francisco Meza**: Lead Data Scientist & ML Engineer
-- **Yulian Cama**: Full Stack Developer & UI/UX Designer
+- **Francisco Meza**: Full Stack Developer & UI/UX Designer
+- **Yulian Cama**: Lead Data Scientist & ML Engineer
 
 
 

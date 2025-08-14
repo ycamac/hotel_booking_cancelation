@@ -33,7 +33,7 @@ def login_page():
                             st.session_state.authenticated = True
                             st.session_state.username = username
                             st.session_state.page = "home"
-                            st.session_state.bookings = []
+                            st.session_state.db_path = "./data/hotelligence.db"
                             st.success("Login successful!!")
                             time.sleep(1)  # Simulate a delay for better UX
                             st.rerun()

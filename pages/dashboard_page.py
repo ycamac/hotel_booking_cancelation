@@ -1,20 +1,18 @@
 import streamlit as st
 import plotly.express as px
 import pandas as pd
-import model.functions as mf
 
-from db.db_functions import get_all_bookings
+from data.functions import get_bookings
 from model.functions import booking_data_to_dictionary
+from model.functions import get_model_metrics
 
 def dashboard_page():
     """Dashboard page component bound to real predictions created from New Booking."""
     st.markdown('<h1 class="main-header">Dashboard</h1>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Monitor performance and live cancellation risk from model predictions.</p>', unsafe_allow_html=True)
 
-    # bookings = st.session_state.get('bookings', [])
-
     # Get all bookings from the database
-    bookings = get_all_bookings()
+    bookings = get_bookings()
     # Convert bookings to a more usable format
     bookings_dict = booking_data_to_dictionary(bookings)
 
@@ -58,7 +56,7 @@ def dashboard_page():
         </div>
         """, unsafe_allow_html=True)
     with col4:
-        metrics = mf.get_model_metrics()
+        metrics = get_model_metrics()
         st.markdown(f"""
         <div class="metric-card">
             <h3>Model Accuracy</h3>

@@ -1,6 +1,8 @@
 import streamlit as st
-from data.bookings_data import filter_bookings
-from db.db_functions import get_all_bookings
+import time
+from data.functions import get_bookings
+from data.functions import filter_bookings
+from data.functions import delete_booking
 from model.functions import booking_data_to_dictionary
 
 def bookings_page():
@@ -67,13 +69,8 @@ def bookings_page():
     
     st.markdown('<h3 style="margin-top: 2rem;">All Bookings</h3>', unsafe_allow_html=True)
     
-    # Use only real bookings created in this session
-    if 'bookings' not in st.session_state:
-        st.session_state.bookings = []
-    # bookings = st.session_state.bookings
-
     # Get all bookings from the database
-    bookings = get_all_bookings()
+    bookings = get_bookings()
     # Convert bookings to a more usable format
     bookings_dict = booking_data_to_dictionary(bookings)
 
@@ -101,6 +98,7 @@ def bookings_page():
         <div style="display: flex; gap: 20px; align-items: center;">
             <div style="min-width: 80px;">Status</div>
             <div style="min-width: 120px;">Prediction Score</div>
+            <!--<div style="min-width: 160px;">Actions</div>-->
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -133,3 +131,47 @@ def bookings_page():
             </div>
         </div>
         """, unsafe_allow_html=True) 
+
+
+    # Delete Boton
+    # for booking in filtered_bookings:
+    #     status_class = "status-confirmed" if booking['status'] == 'Confirmed' else "status-cancelled"
+
+    #     # Create columns so the button is aligned with each row
+    #     col1, col2 = st.columns([6, 1])
+
+    #     with col1:
+    #         st.markdown(f"""
+    #         <div class="booking-row">
+    #             <div class="booking-info">
+    #                 <div class="booking-id">{booking['booking_id']}</div>
+    #                 <div class="guest-name">{booking['guest_name']}</div>
+    #                 <div class="date">{booking['check_in']}</div>
+    #                 <div class="date">{booking['check_out']}</div>
+    #                 <div class="room-type">{booking['hotel_type']}</div>
+    #             </div>
+    #             <div style="display: flex; gap: 20px; align-items: center;">
+    #                 <span class="status-badge {status_class}">{booking['status']}</span>
+    #                 <div class="prediction-container">
+    #                     <div class="progress-bar">
+    #                         <div class="progress-fill" style="width: {booking['prediction_score']}%"></div>
+    #                     </div>
+    #                     <span class="prediction-score">{booking['prediction_score']}</span>
+    #                 </div>
+    #             </div>
+    #         </div>
+    #         """, unsafe_allow_html=True)
+
+    #     with col2:
+    #         if st.button("🗑️", type="primary", use_container_width=True, key=f"delete_{booking['booking_id']}"):
+                
+    #             # Call your delete function here
+    #             success_msg, error_msg = delete_booking(booking['booking_id'])
+
+    #             # Show success message or error message
+    #             if error_msg:
+    #                 st.error(f"Error deleting booking {booking['booking_id']}: {error_msg}")
+    #             else:
+    #                 st.success(success_msg)
+    #             time.sleep(0.8)
+    #             st.rerun()

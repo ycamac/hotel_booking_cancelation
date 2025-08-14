@@ -1,8 +1,9 @@
 import pandas as pd
 import streamlit as st
-from db.db_functions import add_booking
+
 import model.functions as mf
-from data.bookings_data import create_new_booking
+
+from data.functions import add_booking
 from data.country_codes import get_countries_for_selectbox
 from datetime import date
 
@@ -125,10 +126,6 @@ def new_booking_page():
                         </p>
                     </div>
                     """, unsafe_allow_html=True)
-                    
-                    # Create new booking with real prediction
-                    new_booking, _ = create_new_booking(guest_name, hotel_type, check_in, check_out)
-                    new_booking['prediction_score'] = prediction_score
 
                     # Add to database
                     success_msg, error_msg = add_booking(
@@ -138,18 +135,14 @@ def new_booking_page():
                         average_daily_rate, assigned_room_type, market_segment,
                         distribution_channel, booking_changes, is_repeated_guest,
                         previous_cancellations, previous_bookings_not_canceled, prediction_score)
+
+                    # Show success message or error message
                     if error_msg:
                         st.error(f"Error adding booking: {error_msg}")
                     else:
                         st.success(success_msg)
-
-                    # Add to bookings
-                    if 'bookings' not in st.session_state:
-                        st.session_state.bookings = []
-                    st.session_state.bookings.append(new_booking)
                     
-                    # Show success message and option to view bookings
-                    st.success("Booking created successfully!")
+                    
                     #if st.button("View All Bookings"):
                     #    st.session_state.page = "bookings"
                     #    st.rerun()
