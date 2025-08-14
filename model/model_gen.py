@@ -6,7 +6,6 @@
 import pandas as pd
 import pickle
 import functions as mf
-import skops.io as sio
 
 from sklearn.ensemble import RandomForestClassifier
 

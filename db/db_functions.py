@@ -1,9 +1,26 @@
 import sqlite3 as sql
 from datetime import datetime, timedelta
 
+def delete_booking(booking_id):
+    db_path = "./db/hotelligence.db"
+    success_msg = ""
+    error_msg = ""
+    try:
+        with sql.connect(db_path) as con:
+            cur = con.cursor()
+            cur.execute("DELETE FROM bookings WHERE id = ?", (booking_id,))
+            con.commit()
+            success_msg = "Booking record successfully deleted!"
+    except Exception as e:
+        con.rollback()
+        error_msg = f"Error deleting record: {e}"
+    return success_msg, error_msg
+
+
 def get_all_bookings():
     db_path = "./db/hotelligence.db"
     with sql.connect(db_path) as con:
+        con.row_factory = sql.Row
         cur = con.cursor()
         cur.execute("SELECT * FROM bookings")
         rows = cur.fetchall()
@@ -22,12 +39,12 @@ def add_booking(guest_name,hotel_type, check_in, check_out,
     success_msg = ""
     error_msg = ""  
     reservation_status = "Active"
-    current_date = datetime.now().date()
+    current_date = datetime.now()
 
     # Calculate lead_time automatically based on current date and check-in date
     if check_in:
         check_in_date = check_in if isinstance(check_in, datetime) else datetime.strptime(str(check_in), '%Y-%m-%d')      
-        lead_time = (check_in_date.date() - current_date).days
+        lead_time = (check_in_date.date() - current_date.date()).days
         lead_time = max(0, lead_time)  # Ensure lead_time is not negative
     else:
         lead_time = 0
@@ -77,4 +94,20 @@ def add_booking(guest_name,hotel_type, check_in, check_out,
     except Exception as e:
         con.rollback()
         error_msg = f"Error inserting record: {e}"
+    return success_msg, error_msg
+
+
+def delete_booking(booking_id):
+    db_path = "./db/hotelligence.db"
+    success_msg = ""
+    error_msg = ""
+    try:
+        with sql.connect(db_path) as con:
+            cur = con.cursor()
+            cur.execute("DELETE FROM bookings WHERE id = ?", (booking_id,))
+            con.commit()
+            success_msg = "Booking record successfully deleted!"
+    except Exception as e:
+        con.rollback()
+        error_msg = f"Error deleting record: {e}"
     return success_msg, error_msg

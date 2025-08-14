@@ -1,5 +1,7 @@
 import streamlit as st
 from data.bookings_data import filter_bookings
+from db.db_functions import get_all_bookings
+from model.functions import booking_data_to_dictionary
 
 def bookings_page():
     """Bookings page component"""
@@ -68,18 +70,23 @@ def bookings_page():
     # Use only real bookings created in this session
     if 'bookings' not in st.session_state:
         st.session_state.bookings = []
-    bookings = st.session_state.bookings
-    
+    # bookings = st.session_state.bookings
+
+    # Get all bookings from the database
+    bookings = get_all_bookings()
+    # Convert bookings to a more usable format
+    bookings_dict = booking_data_to_dictionary(bookings)
+
     # Filter bookings based on search and filters
     filtered_bookings = filter_bookings(
-        bookings, 
+        bookings_dict, 
         search_query, 
         status_filter, 
         hotel_type_filter, 
         date_filter
     )
     
-    st.markdown(f'<p style="color: #6b7280; margin-bottom: 1rem;">Showing {len(filtered_bookings)} of {len(bookings)} bookings</p>', unsafe_allow_html=True)
+    st.markdown(f'<p style="color: #6b7280; margin-bottom: 1rem;">Showing {len(filtered_bookings)} of {len(bookings_dict)} bookings</p>', unsafe_allow_html=True)
     
     # Display table header
     st.markdown("""

@@ -3,19 +3,26 @@ import plotly.express as px
 import pandas as pd
 import model.functions as mf
 
+from db.db_functions import get_all_bookings
+from model.functions import booking_data_to_dictionary
 
 def dashboard_page():
     """Dashboard page component bound to real predictions created from New Booking."""
     st.markdown('<h1 class="main-header">Dashboard</h1>', unsafe_allow_html=True)
     st.markdown('<p class="sub-header">Monitor performance and live cancellation risk from model predictions.</p>', unsafe_allow_html=True)
 
-    bookings = st.session_state.get('bookings', [])
+    # bookings = st.session_state.get('bookings', [])
+
+    # Get all bookings from the database
+    bookings = get_all_bookings()
+    # Convert bookings to a more usable format
+    bookings_dict = booking_data_to_dictionary(bookings)
 
     # If no data yet, guide the user
-    if not bookings:
+    if not bookings_dict:
         st.info("No bookings with predictions yet. Create one in New Booking to populate the dashboard.")
 
-    df = pd.DataFrame(bookings) if bookings else pd.DataFrame(columns=[
+    df = pd.DataFrame(bookings_dict) if bookings_dict else pd.DataFrame(columns=[
         'booking_id', 'guest_name', 'check_in', 'check_out', 'hotel_type', 'status', 'prediction_score'
     ])
 
@@ -64,40 +71,31 @@ def dashboard_page():
     col1, col2 = st.columns(2)
     with col1:
         # Avg predicted risk by check-in month (robust ordering and month completion)
-        if not df.empty and 'check_in' in df and 'prediction_score' in df:
-            parsed = pd.to_datetime(df['check_in'], errors='coerce')
-            valid = pd.DataFrame({'date': parsed, 'risk': df['prediction_score']}).dropna(subset=['date'])
+        if not df.empty and 'check_in' in df.columns and 'prediction_score' in df.columns:
+            df['check_in'] = pd.to_datetime(df['check_in'], errors='coerce')
+            valid = df.dropna(subset=['check_in', 'prediction_score'])
+            
             if not valid.empty:
-                valid['month'] = valid['date'].dt.to_period('M').dt.to_timestamp()
-                trend_df = (
-                    valid.groupby('month', as_index=False)['risk']
-                    .mean()
-                    .sort_values('month')
-                )
-                # Fill missing months between min and max
-                start = trend_df['month'].min()
-                end = trend_df['month'].max()
-                full_months = pd.date_range(start=start, end=end, freq='MS')
-                trend_df = (
-                    trend_df.set_index('month')
-                    .reindex(full_months)
-                    .rename_axis('month')
-                    .reset_index()
-                )
+                valid['month'] = valid['check_in'].dt.to_period('M').dt.to_timestamp()
+                trend_df = valid.groupby('month', as_index=False)['prediction_score'].mean()
+                
+                # Fill missing months
+                full_months = pd.date_range(trend_df['month'].min(), trend_df['month'].max(), freq='MS')
+                trend_df = trend_df.set_index('month').reindex(full_months).rename_axis('month').reset_index()
+                trend_df['prediction_score'] = trend_df['prediction_score'].fillna(0)  # or interpolate
+                
             else:
-                trend_df = pd.DataFrame({'month': [], 'risk': []})
+                trend_df = pd.DataFrame({'month': [], 'prediction_score': []})
         else:
-            trend_df = pd.DataFrame({'month': [], 'risk': []})
+            trend_df = pd.DataFrame({'month': [], 'prediction_score': []})
 
         fig_trend = px.line(
             trend_df,
             x='month',
-            y='risk',
+            y='prediction_score',
             title='Avg Predicted Cancellation Risk by Month',
-            labels={'month': 'Month', 'risk': 'Avg Risk (%)'}
+            labels={'month': 'Month', 'prediction_score': 'Avg Risk (%)'}
         )
-        fig_trend.update_layout(height=400)
-        fig_trend.update_xaxes(dtick="M1", tickformat="%Y-%m")
         st.plotly_chart(fig_trend, use_container_width=True)
 
     with col2:

@@ -145,3 +145,49 @@ def prepare_booking_data_for_prediction(hotel_type, check_in, check_out,
     }
     
     return pd.DataFrame(booking_data)
+
+
+def booking_data_to_dictionary(bookings):
+    transformed_data = []
+    for booking in bookings:
+        transformed_booking = {
+            "booking_id": booking["booking_id"],
+            "guest_name": booking["guest_name"],
+            "check_in": booking["check_in_date"],
+            "check_out": booking["check_out_date"],
+            "hotel_type": booking["hotel_type"],
+            "status": booking["reservation_status"],
+            "prediction_score": booking["cancellation_prob"]
+
+            # "lead_time": booking.lead_time,
+            # "stays_in_weekend_nights": booking.stays_in_weekend_nights,
+            # "stays_in_week_nights": booking.stays_in_week_nights,
+            # "adults": booking.adults,
+            # "children": booking.children,
+            # "babies": booking[7],
+            # "meal": booking[8],
+            # "country": booking[9],
+            # "market_segment": booking[10],
+            # "distribution_channel": booking[11],
+            # "is_repeated_guest": booking[12],
+            # "previous_cancellations": booking[13],
+            # "previous_bookings_not_canceled": booking[14],
+            # "reserved_room_type": booking[15],
+            # "assigned_room_type": booking[16],
+            # "booking_changes": booking[17],
+            # "deposit_type": booking[18],
+            # "customer_type": booking[19],
+            # "adr": booking[20],
+            # "required_car_parking_spaces": booking[21],
+            # "total_of_special_requests": booking[22]
+        }
+        transformed_data.append(transformed_booking)
+    return transformed_data
+
+
+# booking_date, , , , lead_time, ,
+#                     stays_in_weekend_nights, stays_in_week_nights, adults, children, babies, meal, country,
+#                     market_segment, distribution_channel, is_repeated_guest, previous_cancellations,
+#                     previous_bookings_not_canceled, reserved_room_type, assigned_room_type, booking_changes,
+#                     deposit_type, customer_type, adr, required_car_parking_spaces, total_of_special_requests,
+#                     , reservation_status_date, 

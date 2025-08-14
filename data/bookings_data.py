@@ -1,4 +1,5 @@
 import numpy as np
+from datetime import datetime, timedelta
 
 def generate_dummy_bookings():
     """Generate dummy booking data"""
@@ -105,7 +106,7 @@ def filter_bookings(bookings, search_query=None, status_filter=None, hotel_type_
         search_lower = search_query.lower()
         filtered_bookings = [
             booking for booking in filtered_bookings
-            if (search_lower in booking['booking_id'].lower() or
+            if (search_lower in str(booking['booking_id']) or
                 search_lower in booking['guest_name'].lower() or
                 search_lower in booking['hotel_type'].lower())
         ]
@@ -126,30 +127,28 @@ def filter_bookings(bookings, search_query=None, status_filter=None, hotel_type_
     
     # Apply date range filter
     if date_filter and date_filter != "All":
-        from datetime import datetime, timedelta
         today = datetime.now()
-        
+    
         if date_filter == "This Week":
-            week_start = today - timedelta(days=today.weekday())
-            week_end = week_start + timedelta(days=6)
+            start_date = today - timedelta(days=today.weekday())
+            end_date = start_date + timedelta(days=6)
         elif date_filter == "This Month":
-            month_start = today.replace(day=1)
+            start_date = today.replace(day=1)
             if today.month == 12:
-                month_end = today.replace(year=today.year + 1, month=1, day=1) - timedelta(days=1)
+                end_date = today.replace(year=today.year + 1, month=1, day=1) - timedelta(days=1)
             else:
-                month_end = today.replace(month=today.month + 1, day=1) - timedelta(days=1)
+                end_date = today.replace(month=today.month + 1, day=1) - timedelta(days=1)
         elif date_filter == "Next Month":
             if today.month == 12:
-                month_start = today.replace(year=today.year + 1, month=1, day=1)
-                month_end = today.replace(year=today.year + 1, month=2, day=1) - timedelta(days=1)
+                start_date = today.replace(year=today.year + 1, month=1, day=1)
+                end_date = today.replace(year=today.year + 1, month=2, day=1) - timedelta(days=1)
             else:
-                month_start = today.replace(month=today.month + 1, day=1)
-                month_end = today.replace(month=today.month + 2, day=1) - timedelta(days=1)
-        
+                start_date = today.replace(month=today.month + 1, day=1)
+                end_date = today.replace(month=today.month + 2, day=1) - timedelta(days=1)
+
         filtered_bookings = [
             booking for booking in filtered_bookings
-            if (datetime.strptime(booking['check_in'], '%Y-%m-%d') >= week_start and
-                datetime.strptime(booking['check_in'], '%Y-%m-%d') <= week_end)
+            if start_date <= datetime.strptime(booking['check_in'], '%Y-%m-%d') <= end_date
         ]
     
     return filtered_bookings 
