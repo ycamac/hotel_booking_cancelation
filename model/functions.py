@@ -56,11 +56,12 @@ def transform_with_scaler(df, feature_cols, scaler):
 ###############################################################################################################
 
 def get_model_metrics():
+    model_sum = pd.read_csv("./model/files/model_summary.csv")
     return {
-        "Accuracy": 0.87,
-        "Precision": 0.81,
-        "Recall": 0.79,
-        "F1 Score": 0.80,
+        "Accuracy": model_sum['test_accuracy'][0],
+        "Precision": model_sum['test_precision_macro'][0],
+        "Recall": model_sum['test_recall_macro'][0],
+        "F1 Score": model_sum['test_f1_macro'][0],
     }
 
 def get_model(model_path):

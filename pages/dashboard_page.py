@@ -43,7 +43,7 @@ def dashboard_page():
         st.markdown(f"""
         <div class="metric-card">
             <h3>Avg Predicted Risk</h3>
-            <h2 style="color: #dc2626; font-size: 2rem;">{avg_pred_risk:.1f}%</h2>
+            <h2 style="color: #dc2626; font-size: 2rem;">{avg_pred_risk:.2f}%</h2>
             <p style="color: #6b7280;">mean of prediction scores</p>
         </div>
         """, unsafe_allow_html=True)
@@ -52,7 +52,7 @@ def dashboard_page():
         <div class="metric-card">
             <h3>High-Risk Bookings</h3>
             <h2 style="color: #f59e0b; font-size: 2rem;">{high_risk_count}</h2>
-            <p style="color: #6b7280;">≥ 70% risk ({high_risk_rate:.0f}%)</p>
+            <p style="color: #6b7280;">≥ 70% risk ({high_risk_rate:.2f}%)</p>
         </div>
         """, unsafe_allow_html=True)
     with col4:
@@ -60,7 +60,7 @@ def dashboard_page():
         st.markdown(f"""
         <div class="metric-card">
             <h3>Model Accuracy</h3>
-            <h2 style="color: #059669; font-size: 2rem;">{metrics['Accuracy']*100:.0f}%</h2>
+            <h2 style="color: #059669; font-size: 2rem;">{metrics['Accuracy']*100:.2f}%</h2>
             <p style="color: #6b7280;">static from evaluation</p>
         </div>
         """, unsafe_allow_html=True)
